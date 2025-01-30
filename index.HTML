@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="Display">0</div>
+    <div id="RoundDisplay">Round Time: 0</div>
+    <button onclick="start()">Start/Stop</button>
+    <button id="rounds" onclick="roundTime()">Round Time</button>
+    <button onclick="reset()">Reset</button>
+
+    <script>
+        let number = 0;
+        let interval;
+        let startTime;
+
+        function start() {
+            if (interval) {
+                clearInterval(interval);
+                interval = null;
+            } else {
+                startTime = Date.now();
+                interval = setInterval(function() {
+                    number++;
+                    document.getElementById('Display').textContent = number;
+                }, 1000);
+            }
+        }
+
+        function roundTime() {
+            if (interval) {
+                let roundTime = Math.floor((Date.now() - startTime) / 1000);
+                document.getElementById('RoundDisplay').textContent = "Round Time: " + roundTime + " seconds";
+            } else {
+                document.getElementById('RoundDisplay').textContent = "Round Time: 0 seconds";
+            }
+        }
+
+        function reset() {
+            clearInterval(interval);
+            interval = null;
+            number = 0;
+            startTime = null;
+            document.getElementById('Display').textContent = 0;
+            document.getElementById('RoundDisplay').textContent = "Round Time: 0 seconds";
+        }
+    </script>
+</body>
+</html>
